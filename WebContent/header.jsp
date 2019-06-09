@@ -17,10 +17,10 @@
             <a class="nav-link" href="/projectslb/createStudy/index.jsp">스터디 만들기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/projectslb/post.jsp">스터디 찾아보기</a>
+            <a class="nav-link" href="/projectslb/searchStudy/index.jsp">스터디 찾아보기</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/projectslb/contact.jsp">내 스터디</a>
+            <a class="nav-link" href="/projectslb/myStudy/index.jsp">내 스터디</a>
           </li>
         </ul>
       </div>

@@ -18,7 +18,7 @@ pageContext.forward("/auth/login.jsp");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Clean Blog - Start Bootstrap Theme</title>
+  <title>스터디 만들기</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
