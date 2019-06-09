@@ -65,5 +65,29 @@ public class SearchProcess {
 		return rs;
 	}
 	
+	public ResultSet getStudyDetail(int studyIdx) {
+		Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            con = pool.getConnection();
+            con.prepareStatement("SET NAMES utf8mb4").executeQuery();
+			String getStudyDetailQuery = "SELECT study_name, study_desc FROM study WHERE study_idx = ?";
+            pstmt = con.prepareStatement(getStudyDetailQuery);
+            pstmt.setInt(1, studyIdx);
+            
+            rs = pstmt.executeQuery();
+            
+            
+        }catch(Exception ex) {
+            System.out.println("Exception" + ex);
+        }finally{
+             pool.freeConnection(con);
+        }
+		
+		return rs;
+	}
+	
 	
 }

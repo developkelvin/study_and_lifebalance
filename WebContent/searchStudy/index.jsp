@@ -1,3 +1,4 @@
+<%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:useBean id="searchDB" class="db.SearchProcess"></jsp:useBean>
@@ -56,7 +57,7 @@
     while(rs.next()){
     	%>
     	<div class="post-preview">
-          <a href="studyDetail.jsp?studyIdx=<%= rs.getString("study_idx")%>">
+          <a href="/projectslb/searchStudy/studyDetail.jsp?studyIdx=<%= rs.getString("study_idx")%>">
             <h2 class="post-title">
               	<%= rs.getString("study_name") %>
             </h2>
@@ -65,7 +66,11 @@
             </h3>
           </a>
           <p class="post-meta">생성자
-            <a href="#"><%= rs.getString("user_name") %></a>
+            <%= rs.getString("user_name") %> 
+            <%ResultSet member = searchDB.getStudyMemberList(Integer.valueOf(rs.getString("study_idx"))); 
+            member.last();
+            out.print("<br>");
+            out.print("회원 수 : "+member.getRow()+"명");%>
             <!-- on March 24, 2019 --></p>
         </div>
         <hr>

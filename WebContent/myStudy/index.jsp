@@ -70,13 +70,13 @@ pageContext.forward("/auth/login.jsp");
     while(rs.next()){
     	%>
     	<div class="post-preview">
-          <a href="studyDetail.jsp?studyIdx=<%= rs.getString("study_idx")%>">
+          <a href="/projectslb/searchStudy/studyDetail.jsp?studyIdx=<%= rs.getString("study_idx")%>">
             <h2 class="post-title">
               	<%= rs.getString("study_name") %>
             </h2>
           </a>
           <p class="post-meta">
-            스터디 <%out.print(rs.getInt("is_master")==1?"운영자":"회원"); %>
+            스터디 <%out.print(rs.getInt("is_master")==1?"개설자":"회원"); %>
             <!-- on March 24, 2019 --></p>
         </div>
         <hr>
