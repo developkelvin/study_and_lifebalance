@@ -1,7 +1,9 @@
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:useBean id="searchDB" class="db.SearchProcess"></jsp:useBean>
-<% int studyIdx = Integer.valueOf(request.getParameter("studyIdx")); 
+<% 
+	String userId = (String) session.getAttribute("user_id");
+	int studyIdx = Integer.valueOf(request.getParameter("studyIdx")); 
 	ResultSet detail = searchDB.getStudyDetail(studyIdx);
 	ResultSet members = searchDB.getStudyMemberList(studyIdx);
 	detail.next();
@@ -55,9 +57,32 @@
   <!-- Main Content -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
       
-      </div>
+      	<% if(userId == null){
+      		%>
+      		<div class="col-lg col-md mx-auto text-center" >
+      		<p>로그인 하셔야 확인할 수 있습니다.</p>
+      		<button type="button" class="btn btn-outline-warning">로그인</button>
+      		</div>
+      		
+      		<%
+      	}else if(!searchDB.checkJoinStudy(userId, studyIdx)){ // 스터디가 가입되지 않은 경우
+      		%>
+      		<div class="col-lg col-md mx-auto text-center" >
+      		<p>스터디에 가입 하셔야 확인할 수 있습니다.</p>
+      		<button type="button" class="btn btn-outline-warning">가입하기</button>
+      		</div>
+      		<% 
+      	}else{// 스터디에 가입한 경우 스터디 일지 보여주기
+      		%>
+      		<div class="col-lg-8 col-md-10 mx-auto" >
+      		
+      		</div>
+      		<%
+      	}
+      		%>
+      	
+      
     </div>
   </div>
 
@@ -82,7 +107,7 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalScrollableTitle">회원목록</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

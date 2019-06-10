@@ -38,7 +38,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>스라밸</h1>
-            <span class="subheading">원하는 IT 스터디를 찾아보세요.</span>
+            <span class="subheading">원하는  스터디를 찾아보세요.</span>
           </div>
         </div>
       </div>

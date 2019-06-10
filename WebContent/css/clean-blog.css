@@ -29,6 +29,10 @@ h6 {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.h3, h3{
+	font-size:1.4rem;
+}
+
 a {
   color: #212529;
   -webkit-transition: all 0.2s;
@@ -190,8 +194,8 @@ header.masthead .overlay {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #212529;
-  opacity: 0.5;
+  background-color: #FCBB6D;
+  opacity: 0.4;
 }
 
 header.masthead .page-heading,
@@ -233,7 +237,7 @@ header.masthead .site-heading .subheading {
 @media only screen and (min-width: 768px) {
   header.masthead .page-heading h1,
   header.masthead .site-heading h1 {
-    font-size: 80px;
+    font-size: 40px;
   }
 }
 
@@ -313,7 +317,7 @@ header.masthead .post-heading .meta a {
 
 @media only screen and (min-width: 768px) {
   .post-preview > a > .post-title {
-    font-size: 36px;
+    font-size: 25px;
   }
 }
 

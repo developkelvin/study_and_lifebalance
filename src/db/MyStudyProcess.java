@@ -14,7 +14,11 @@ public class MyStudyProcess {
 			System.out.println("Error : DB Connect Failed");			
 		}
 	}
-	
+	/**
+	 * 유저가 가입한 스터디 목록을 불러옴
+	 * @param userId
+	 * @return 가입한 스터디의 이름, 개설자 여부, 스터디 idx
+	 */
 	public ResultSet getJoinedStudy(String userId) {
 		Connection con = null;
         PreparedStatement pstmt = null;

@@ -14,6 +14,13 @@ public class StudyProcess {
 		}
 	}
 	
+	/**
+	 * 스터디를 만드는 DB 쿼리를 처리하는 메소드
+	 * @param title
+	 * @param desc
+	 * @param userId
+	 * @return 스터디가 정상적으로 생성 되었는지 여부
+	 */
 	public boolean createStudy(String title, String desc, String userId) {
 		
 		Connection con = null;

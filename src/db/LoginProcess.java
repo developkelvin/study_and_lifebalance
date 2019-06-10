@@ -13,7 +13,14 @@ public class LoginProcess{
 			System.out.println("Error : DB Connect Failed");			
 		}
 	}
-	
+	/**
+	 * 회원 가입하는 메소드
+	 * @param id
+	 * @param pwd
+	 * @param contact
+	 * @param name
+	 * @return 회원 가입 성공 여부
+	 */
 	public boolean SignIn(String id, String pwd, String contact, String name) {
 		
 		Connection con = null;
@@ -39,6 +46,12 @@ public class LoginProcess{
         return signInResult;
 	}
 
+	/**
+	 * 로그인 성공 여부를 확인하는 메소드
+	 * @param id
+	 * @param pwd
+	 * @return 로그인 성공 여부
+	 */
 	public boolean login(String id, String pwd) {
         Connection con = null;
         PreparedStatement pstmt = null;
