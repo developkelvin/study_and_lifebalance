@@ -1,6 +1,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="myStudyDB" class="db.MyStudyProcess"></jsp:useBean>
+<jsp:useBean id="myStudyDAO" class="db.MyStudyDAO"></jsp:useBean>
 <!DOCTYPE html>
 <html lang="en">
 <% if (session.getAttribute("user_id") == null) { 
@@ -65,7 +65,7 @@ pageContext.forward("/auth/login.jsp");
         <hr/>
         <% 
         String userId = (String) session.getAttribute("user_id");
-      ResultSet rs = myStudyDB.getJoinedStudy(userId);
+      ResultSet rs = myStudyDAO.getJoinedStudy(userId);
     //for문 사용해서 스터디 출력하기
     while(rs.next()){
     	%>

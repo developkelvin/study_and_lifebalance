@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class MyStudyProcess {
+public class MyStudyDAO {
 	private DBConnectionMgr pool;
 
-	public MyStudyProcess(){
+	public MyStudyDAO(){
 		try{
 			pool = DBConnectionMgr.getInstance();
 		}catch(Exception e){

@@ -2,11 +2,11 @@ package db;
 
 import java.sql.*;
 
-public class LoginProcess{
+public class LoginDAO{
 	
 	private DBConnectionMgr pool;
 
-	public LoginProcess(){
+	public LoginDAO(){
 		try{
 			pool = DBConnectionMgr.getInstance();
 		}catch(Exception e){

@@ -6,10 +6,9 @@
 %>
 	<script>
    alert("로그인이 필요합니다.");
+   location.href="/projectslb/auth/login.jsp?referer=/projectslb/createStudy/index.jsp"
   </script>
 <%
-request.setAttribute("referer", "/projectslb/createStudy/index.jsp");
-pageContext.forward("/auth/login.jsp");
 } %>
 <head>
 

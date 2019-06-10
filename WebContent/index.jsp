@@ -1,5 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<jsp:useBean id="searchDAO" class="db.SearchDAO"></jsp:useBean>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,62 +50,36 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          <a href="post.html">
+         <% 
+      ResultSet rs = searchDAO.getStudyList(3);
+    //for문 사용해서 스터디 출력하기
+    while(rs.next()){
+    	%>
+    	<div class="post-preview">
+          <a href="/projectslb/searchStudy/studyDetail.jsp?studyIdx=<%= rs.getString("study_idx")%>">
             <h2 class="post-title">
-              정보시스템 통합 및 실습
+              	<%= rs.getString("study_name") %>
             </h2>
             <h3 class="post-subtitle">
-              A+을 받기 위한 스터디 모임
+              <%= rs.getString("study_desc") %>
             </h3>
           </a>
           <p class="post-meta">생성자
-            <a href="#">정윤식</a>
-            on March 24, 2019</p>
+            <%= rs.getString("user_name") %> 
+            <%ResultSet member = searchDAO.getStudyMemberList(Integer.valueOf(rs.getString("study_idx"))); 
+            member.last();
+            out.print("<br>");
+            out.print("회원 수 : "+member.getRow()+"명");%>
+            <!-- on March 24, 2019 --></p>
         </div>
         <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but itâs actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-        </div>
-        <hr>
+    	<%
+    }
+      %>
+       
         <!-- Pager -->
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+          <a class="btn btn-primary float-right" href="/projectslb/searchStudy/index.jsp">더 많은 스터디 &rarr;</a>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<jsp:useBean id="loginDB" class="db.LoginProcess" ></jsp:useBean>
+<jsp:useBean id="loginDAO" class="db.LoginDAO" ></jsp:useBean>
 <%
 request.setCharacterEncoding("UTF-8");
 // 로그인 이전 경로를 받아 저장
@@ -15,7 +15,7 @@ if(referer == null || referer.equals("null") || referer=="")
 String userId = request.getParameter("user_id");
 String userPwd = request.getParameter("user_pwd");
 // DB에 연동
-boolean loginResult = loginDB.login(userId, userPwd);
+boolean loginResult = loginDAO.login(userId, userPwd);
 
 if(loginResult){
 	// 로그인  성공

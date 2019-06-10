@@ -2,11 +2,11 @@ package db;
 
 import java.sql.*;
 
-public class StudyProcess {
+public class CreateStudyDAO {
 	
 	private DBConnectionMgr pool;
 
-	public StudyProcess(){
+	public CreateStudyDAO(){
 		try{
 			pool = DBConnectionMgr.getInstance();
 		}catch(Exception e){

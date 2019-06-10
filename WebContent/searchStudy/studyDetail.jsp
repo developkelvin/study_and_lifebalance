@@ -1,11 +1,11 @@
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="searchDB" class="db.SearchProcess"></jsp:useBean>
+<jsp:useBean id="searchDAO" class="db.SearchDAO"></jsp:useBean>
 <% 
 	String userId = (String) session.getAttribute("user_id");
 	int studyIdx = Integer.valueOf(request.getParameter("studyIdx")); 
-	ResultSet detail = searchDB.getStudyDetail(studyIdx);
-	ResultSet members = searchDB.getStudyMemberList(studyIdx);
+	ResultSet detail = searchDAO.getStudyDetail(studyIdx);
+	ResultSet members = searchDAO.getStudyMemberList(studyIdx);
 	detail.next();
 	
 %>
@@ -58,31 +58,77 @@
   <div class="container">
     <div class="row">
       
-      	<% if(userId == null){
+      	<% if(userId == null){//로그인이 되지 않은 경우
       		%>
       		<div class="col-lg col-md mx-auto text-center" >
       		<p>로그인 하셔야 확인할 수 있습니다.</p>
-      		<button type="button" class="btn btn-outline-warning">로그인</button>
+      		<button type="button" id="login-required" class="btn btn-outline-warning">로그인</button>
       		</div>
       		
       		<%
-      	}else if(!searchDB.checkJoinStudy(userId, studyIdx)){ // 스터디가 가입되지 않은 경우
+      	}else if(!searchDAO.checkJoinStudy(userId, studyIdx)){ // 스터디가 가입되지 않은 경우
       		%>
       		<div class="col-lg col-md mx-auto text-center" >
       		<p>스터디에 가입 하셔야 확인할 수 있습니다.</p>
-      		<button type="button" class="btn btn-outline-warning">가입하기</button>
+      		<button type="button" id="join-study" class="btn btn-outline-warning">가입하기</button>
       		</div>
       		<% 
       	}else{// 스터디에 가입한 경우 스터디 일지 보여주기
+      		
       		%>
       		<div class="col-lg-8 col-md-10 mx-auto" >
-      		
+      		<p>스터디 일지</p>
+		        <form name="createStudy" id="createStudyForm" action="/projectslb/searchStudy/writeStudyDiary.jsp" method="post" novalidate>
+		          <input type="hidden" name="studyIdx" value="<%=studyIdx%>">
+		          <div class="control-group">
+		            <div class="form-group floating-label-form-group controls">
+		              <label>제목</label>
+		              <input type="text" class="form-control" placeholder="제목" name="title" required data-validation-required-message="일지의 제목을 작성하세요.">
+		              <p class="help-block text-danger"></p>
+		            </div>
+		          </div>
+		          <div class="control-group">
+		            <div class="form-group floating-label-form-group controls">
+		              <label>스터디 내용</label>
+		              <textarea rows="3" class="form-control" placeholder="스터디 내용" name="content" required data-validation-required-message="스터디 내용을 작성하세요"></textarea>
+		              <p class="help-block text-danger"></p>
+		            </div>
+		          </div>
+		          <br>
+		          <div id="success"></div>
+		          <div class="form-group text-right">
+		            <button type="submit" class="btn btn-primary" id="sendStudyInfo">일지 작성</button>
+		          </div>
+		        </form>
+		        
+		        <hr/>
+		         <% 
+      ResultSet rs = searchDAO.getDiaryList(studyIdx);
+    //for문 사용해서 스터디 출력하기
+    while(rs.next()){
+    	%>
+    	<div class="post-preview">
+          
+            <h2 class="post-title">
+              	<%= rs.getString("diary_title") %>
+            </h2>
+            <h3 class="post-subtitle">
+              <%= rs.getString("diary_content") %>
+            </h3>
+   
+          <p class="post-meta">작성자
+            <%= rs.getString("user_name") %> 
+            <%= rs.getDate("diary_datetime") %>
+            <!-- on March 24, 2019 --></p>
+        </div>
+        <hr>
+    	<%
+    }
+      %>
       		</div>
       		<%
       	}
       		%>
-      	
-      
     </div>
   </div>
 
@@ -147,3 +193,14 @@
 </div>
 
 </html>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("button#login-required").click(function() {
+		location.href="/projectslb/auth/login.jsp?referer=/projectslb/searchStudy/studyDetail.jsp?studyIdx=<%=studyIdx%>";	
+	});
+	$("button#join-study").click(function() {
+		location.href="/projectslb/searchStudy/studyJoin.jsp?studyIdx=<%=studyIdx%>";	
+	});
+ });
+</script>

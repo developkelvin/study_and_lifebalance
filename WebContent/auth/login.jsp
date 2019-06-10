@@ -49,7 +49,7 @@
       <div class="col-lg-8 col-md-10 mx-auto">
         <p>로그인 하세요</p>
         <form name="createStudy" id="createStudyForm" action="/projectslb/auth/validateLogin.jsp" method="post">
-          <input type="hidden" name="referer" value="<%= request.getAttribute("referer")%>">
+          <input type="hidden" name="referer" value="<%= request.getParameter("referer")%>">
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>아이디</label>

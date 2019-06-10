@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class SearchProcess {
+public class SearchDAO {
 	private DBConnectionMgr pool;
 
-	public SearchProcess(){
+	public SearchDAO(){
 		try{
 			pool = DBConnectionMgr.getInstance();
 		}catch(Exception e){
@@ -158,6 +158,56 @@ public class SearchProcess {
         }
         return joinResult;
 	}
+	
+	public ResultSet getDiaryList(int studyIdx) {
+		
+		Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            con = pool.getConnection();
+            con.prepareStatement("SET NAMES utf8mb4").executeQuery();
+			String getStudyDiaryQuery = "SELECT d.diary_idx, d.study_idx, d.diary_title, d.diary_content, d.diary_datetime, u.user_name FROM diary AS d INNER JOIN user AS u ON d.diary_writter = u.user_idx WHERE study_idx = ?  ORDER BY d.diary_idx DESC";
+            pstmt = con.prepareStatement(getStudyDiaryQuery);
+            pstmt.setInt(1, studyIdx);
+            
+            rs = pstmt.executeQuery();
+        }catch(Exception ex) {
+            System.out.println("Exception" + ex);
+        }finally{
+             pool.freeConnection(con);
+        }
+		return rs;
+		
+	}
+	
+	public boolean writeDiary(int studyIdx, String title, String content, String writter) {
+		Connection con = null;
+        PreparedStatement pstmt = null;
+        int insertResult = 0;
+        boolean writeResult = false;
+        try {
+            con = pool.getConnection();
+			String query = "INSERT INTO diary(study_idx, diary_title, diary_content, diary_datetime, diary_writter) VALUES (?, ?, ?, now(), (SELECT user_idx FROM user WHERE user_id = ?))";
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, studyIdx);
+            pstmt.setString(2, title);
+            pstmt.setString(3, content);
+            pstmt.setString(4, writter);
+            
+            insertResult = pstmt.executeUpdate();
+            if(insertResult > 0) 
+            	writeResult =true;
+        }catch(Exception ex) {
+            System.out.println("Exception" + ex);
+        }finally{
+             pool.freeConnection(con,pstmt);
+        }
+        return writeResult;
+	}
+	
+	
 	
 	
 	

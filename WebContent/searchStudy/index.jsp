@@ -1,7 +1,7 @@
 <%@page import="java.sql.ResultSetMetaData"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="searchDB" class="db.SearchProcess"></jsp:useBean>
+<jsp:useBean id="searchDAO" class="db.SearchDAO"></jsp:useBean>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,7 +52,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
       <% 
-      ResultSet rs = searchDB.getStudyList(10);
+      ResultSet rs = searchDAO.getStudyList(10);
     //for문 사용해서 스터디 출력하기
     while(rs.next()){
     	%>
@@ -67,7 +67,7 @@
           </a>
           <p class="post-meta">생성자
             <%= rs.getString("user_name") %> 
-            <%ResultSet member = searchDB.getStudyMemberList(Integer.valueOf(rs.getString("study_idx"))); 
+            <%ResultSet member = searchDAO.getStudyMemberList(Integer.valueOf(rs.getString("study_idx"))); 
             member.last();
             out.print("<br>");
             out.print("회원 수 : "+member.getRow()+"명");%>
@@ -77,10 +77,6 @@
     	<%
     }
       %>
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
       </div>
     </div>
   </div>

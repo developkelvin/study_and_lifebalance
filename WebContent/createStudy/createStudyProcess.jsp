@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="studyDB" class="db.StudyProcess" ></jsp:useBean>
+<jsp:useBean id="createStudyDAO" class="db.CreateStudyDAO" ></jsp:useBean>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String studyName = request.getParameter("studyName");
@@ -10,7 +10,7 @@
 	//스터디 생성 정보를 DB에 저장하는 코드 작성
 	boolean createResult = false;
 	if(userId != null){
-		createResult = studyDB.createStudy(studyName, studyDesc, userId);
+		createResult = createStudyDAO.createStudy(studyName, studyDesc, userId);
 	}
 	
 	
